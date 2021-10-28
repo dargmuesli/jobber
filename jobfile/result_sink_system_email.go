@@ -24,10 +24,11 @@ func (self SystemEmailResultSink) Equals(other ResultSink) bool {
 }
 
 func (self SystemEmailResultSink) Handle(rec RunRec) {
-	headers := fmt.Sprintf("To: %v\r\nFrom: %v\r\nSubject: \"%v\" failed.",
+	headers := fmt.Sprintf("To: %v\r\nFrom: %v\r\nSubject: \"%v\" %v.",
 		rec.Job.User,
 		rec.Job.User,
-		rec.Job.Name)
+		rec.Job.Name,
+		rec.NewStatus.String())
 	body := rec.Describe()
 	msg := fmt.Sprintf("%s\r\n\r\n%s.\r\n", headers, body)
 
